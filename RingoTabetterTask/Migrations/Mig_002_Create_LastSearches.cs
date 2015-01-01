@@ -3,17 +3,14 @@ using FluentMigrator;
 
 namespace RingoTabetterTask.Migrations
 {
-    [Migration(1)]
-    public class Mig_001_Create_Apples : AutoReversingMigration
+    [Migration(2)]
+    public class Mig_002_Create_LastSearches : AutoReversingMigration
     {
         public override void Up()
         {
-            Create.Table("apples")
+            Create.Table("last_searches")
                 .WithColumn("id").AsInt32().PrimaryKey().Identity()
-                .WithColumn("name").AsString()
                 .WithColumn("tweet_id").AsInt64()
-                .WithColumn("tweet_at").AsDateTime()
-                .WithColumn("tweet").AsString()
                 .WithColumn("updated_at").AsDateTime().Nullable().WithDefault(SystemMethods.CurrentDateTime);
         }
     }

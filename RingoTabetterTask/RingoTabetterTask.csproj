@@ -37,6 +37,13 @@
     <Reference Include="CoreTweet">
       <HintPath>..\packages\CoreTweet.0.4.0\lib\net45\CoreTweet.dll</HintPath>
     </Reference>
+    <Reference Include="Dapper, Version=1.38.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Dapper.1.38\lib\net45\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Dapper.FluentMap">
+      <HintPath>..\packages\Dapper.FluentMap.1.3.3\lib\net40\Dapper.FluentMap.dll</HintPath>
+    </Reference>
     <Reference Include="FluentMigrator">
       <HintPath>..\packages\FluentMigrator.1.3.1.0\lib\40\FluentMigrator.dll</HintPath>
     </Reference>
@@ -65,17 +72,35 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Migrations\Mig_001_Create_Apples.cs" />
-    <Compile Include="Migrations\Mig_002_Create_Tweets.cs" />
+    <Compile Include="Migrations\Mig_002_Create_LastSearches.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Ringo.cs" />
+    <Compile Include="Helpers\ModelHelper.cs" />
+    <Compile Include="Helpers\TwitterHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <Content Include="..\packages\FluentMigrator.Tools.1.3.1.0\tools\AnyCPU\40\FluentMigrator.Runner.dll">
+      <Link>FluentMigrator.Runner.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\FluentMigrator.Tools.1.3.1.0\tools\AnyCPU\40\Migrate.exe">
+      <Link>Migrate.exe</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="apples.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
+    <Content Include="twitter_settings.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RingoTabetterApi\RingoTabetterApi.csproj">
+      <Project>{07499131-f561-43a1-a3d2-210cc59be1a6}</Project>
+      <Name>RingoTabetterApi</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
