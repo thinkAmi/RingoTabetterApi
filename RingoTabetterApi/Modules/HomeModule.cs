@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Nancy;
+using RingoTabetterApi.Models;
 
 namespace RingoTabetterApi.Modules
 {
@@ -23,6 +24,21 @@ namespace RingoTabetterApi.Modules
                 };
 
                 return Response.AsJson(ringo);
+            };
+
+            Get["/total"] = _ =>
+            {
+                var highcharts = new Highcharts();
+                var result = highcharts.Total;
+
+                return Response.AsJson(result);
+            };
+
+            Get["/month"] = _ =>
+            {
+                var highcharts = new Highcharts();
+                var result = highcharts.TotalByMonth;
+                return Response.AsJson(result);
             };
         }
     }

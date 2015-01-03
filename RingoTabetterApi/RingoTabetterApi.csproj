@@ -79,10 +79,12 @@
     <Compile Include="FluentMaps\LastSearchesMap.cs" />
     <Compile Include="FluentMaps\PropertyTransformConvention.cs" />
     <Compile Include="Models\Apple.cs" />
+    <Compile Include="Models\Highcharts.cs" />
     <Compile Include="Models\RingoTabetterConnection.cs" />
     <Compile Include="Models\LastSearches.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Modules\HomeModule.cs" />
+    <Compile Include="POCOs\AppleCountPoco.cs" />
     <Compile Include="POCOs\ApplePoco.cs" />
     <Compile Include="POCOs\LastSearchPoco.cs" />
     <Compile Include="Program.cs" />
@@ -91,6 +93,10 @@
     <Compile Include="Utility.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\RingoTabetterTask\apples.yaml">
+      <Link>apples.yaml</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>

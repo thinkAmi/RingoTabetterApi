@@ -35,6 +35,39 @@ namespace RingoTabetterApi.Models
         public Apple(IDbConnection cn, IDbTransaction tr) : base(cn, tr) { }
 
 
+        public IEnumerable<AppleCountPoco> AddUp()
+        {
+            Func<IEnumerable<AppleCountPoco>> func = () =>
+            {
+                var sql = @"SELECT COUNT(name) as quantity, name FROM apples GROUP BY name ORDER BY quantity DESC";
+
+                var result = transaction == null ?
+                    connection.Query<AppleCountPoco>(sql) :
+                    connection.Query<AppleCountPoco>(sql, transaction: transaction);
+                return result;
+            };
+
+            var apples = Query(func);
+            return apples;
+        }
+
+        public IEnumerable<AppleCountPoco> AddUpPerMonth()
+        {
+            Func<IEnumerable<AppleCountPoco>> func = () =>
+            {
+                var sql = @"SELECT COUNT(name) as quantity, name, date_part('month', tweet_at) as month FROM apples ";
+                sql += "GROUP BY name, month ORDER BY name, month";
+
+                var result = transaction == null ?
+                    connection.Query<AppleCountPoco>(sql) :
+                    connection.Query<AppleCountPoco>(sql, transaction: transaction);
+                return result;
+            };
+
+            var apples = Query(func);
+            return apples;
+        }
+
 
         public int BulkInsert(IEnumerable<ApplePoco> apples)
         {
@@ -76,5 +109,5 @@ namespace RingoTabetterApi.Models
         }
     }
 
-    
+
 }
