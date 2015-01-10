@@ -31,7 +31,6 @@ namespace RingoTabetterApi.Models
 
 
         public Apple() : base() { }
-
         public Apple(IDbConnection cn, IDbTransaction tr) : base(cn, tr) { }
 
 

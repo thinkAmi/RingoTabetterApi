@@ -14,32 +14,6 @@ namespace RingoTabetterApi.Modules
         public HomeModule()
         {
             Get["/"] = _ => "Hello World";
-
-            Get["/json"] = _ =>
-            {
-                var ringo = new[]
-                {
-                    new { Id = 1, ItemName = "フジ"},
-                    new { Id = 2, ItemName = "秋映"}
-                };
-
-                return Response.AsJson(ringo);
-            };
-
-            Get["/total"] = _ =>
-            {
-                var highcharts = new Highcharts();
-                var result = highcharts.Total;
-
-                return Response.AsJson(result);
-            };
-
-            Get["/month"] = _ =>
-            {
-                var highcharts = new Highcharts();
-                var result = highcharts.TotalByMonth;
-                return Response.AsJson(result);
-            };
         }
     }
 }

@@ -83,6 +83,7 @@
     <Compile Include="Models\RingoTabetterConnection.cs" />
     <Compile Include="Models\LastSearches.cs" />
     <Compile Include="Models\ModelBase.cs" />
+    <Compile Include="Modules\ApiV1Module.cs" />
     <Compile Include="Modules\HomeModule.cs" />
     <Compile Include="POCOs\AppleCountPoco.cs" />
     <Compile Include="POCOs\ApplePoco.cs" />
