@@ -10,12 +10,18 @@ using CoreTweet;
 using RingoTabetterApi.POCOs;
 using RingoTabetterApi.Models;
 
+
 namespace RingoTabetterTask.Helpers
 {
     public class TwitterHelper
     {
         private const string FileName = @"twitter_settings.yaml";
         private const int NumberOfTweetPerApi = 200;
+        private readonly byte[] filterBytes = new byte[]
+        {
+            // フィルターである`^[リンゴ]`のUTF-8バイト列
+            0x5e, 0x5c, 0x5b, 0xe3, 0x83, 0xaa, 0xe3, 0x83, 0xb3, 0xe3, 0x82, 0xb4, 0x5c, 0x5d
+        };
 
         private Tokens tokens;
         private string screenName;
@@ -35,16 +41,22 @@ namespace RingoTabetterTask.Helpers
 
         /// <summary>
         /// 指定したフィルタでツイートを取得する
-        /// 引数のフィルタがデフォルトの場合、全件取得になる
+        /// 今のところ、フィルタはUTF-8のバイト列のみ指定可能
         /// </summary>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public TimelineResult GatherTweets(string filter = "")
+        public TimelineResult GatherTweets()
         {
             var timeline = GatherTweetsByDescendingAfterLastSearch();
-            if (!timeline.Any()) return new TimelineResult();
+            if (!timeline.Any())
+            {
+                Console.WriteLine("nothing");
+                return new TimelineResult();
+            }
 
-            var reg = new Regex(filter);
+            var filterUtf8 = System.Text.Encoding.UTF8.GetString(filterBytes);
+            var reg = new Regex(filterUtf8);
+
             return new TimelineResult()
             {
                 SinceId = timeline.First().Id,
@@ -66,7 +78,6 @@ namespace RingoTabetterTask.Helpers
             // 初回検索時のmax_idは、Twitterのmax_idの上限をセットしておく
             // long.MaxValueではツイートが取れなかったので、上限は long.Value - 1 の模様
             args.Add("max_id", long.MaxValue - 1);
-            
 
             var result = new List<Status>();
             for (int i = 0; i < 10; i++)
@@ -81,6 +92,8 @@ namespace RingoTabetterTask.Helpers
 
                 args["max_id"] = sortedTimeline.Last().Id - 1;
             }
+
+            Console.WriteLine("result:{0}", result.Count);
 
             return result;
         }
@@ -123,8 +136,4 @@ namespace RingoTabetterTask.Helpers
             public string AccessSecret { get; set; }
         }
     }
-
-
-
-    
 }
