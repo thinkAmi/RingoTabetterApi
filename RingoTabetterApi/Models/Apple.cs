@@ -34,15 +34,15 @@ namespace RingoTabetterApi.Models
         public Apple(IDbConnection cn, IDbTransaction tr) : base(cn, tr) { }
 
 
-        public IEnumerable<AppleCountPoco> AddUp()
+        public IEnumerable<TotalApplePoco> AddUp()
         {
-            Func<IEnumerable<AppleCountPoco>> func = () =>
+            Func<IEnumerable<TotalApplePoco>> func = () =>
             {
                 var sql = @"SELECT COUNT(name) as quantity, name FROM apples GROUP BY name ORDER BY quantity DESC";
 
                 var result = transaction == null ?
-                    connection.Query<AppleCountPoco>(sql) :
-                    connection.Query<AppleCountPoco>(sql, transaction: transaction);
+                    connection.Query<TotalApplePoco>(sql) :
+                    connection.Query<TotalApplePoco>(sql, transaction: transaction);
                 return result;
             };
 
@@ -50,16 +50,16 @@ namespace RingoTabetterApi.Models
             return apples;
         }
 
-        public IEnumerable<AppleCountPoco> AddUpPerMonth()
+        public IEnumerable<TotalApplePoco> AddUpByMonths()
         {
-            Func<IEnumerable<AppleCountPoco>> func = () =>
+            Func<IEnumerable<TotalApplePoco>> func = () =>
             {
                 var sql = @"SELECT COUNT(name) as quantity, name, date_part('month', tweet_at) as month FROM apples ";
                 sql += "GROUP BY name, month ORDER BY name, month";
 
                 var result = transaction == null ?
-                    connection.Query<AppleCountPoco>(sql) :
-                    connection.Query<AppleCountPoco>(sql, transaction: transaction);
+                    connection.Query<TotalApplePoco>(sql) :
+                    connection.Query<TotalApplePoco>(sql, transaction: transaction);
                 return result;
             };
 

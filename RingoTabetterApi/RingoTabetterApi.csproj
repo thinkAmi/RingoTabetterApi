@@ -85,7 +85,8 @@
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Modules\ApiV1Module.cs" />
     <Compile Include="Modules\HomeModule.cs" />
-    <Compile Include="POCOs\AppleCountPoco.cs" />
+    <Compile Include="POCOs\AppleByMonthsPoco.cs" />
+    <Compile Include="POCOs\TotalApplePoco.cs" />
     <Compile Include="POCOs\ApplePoco.cs" />
     <Compile Include="POCOs\LastSearchPoco.cs" />
     <Compile Include="Program.cs" />

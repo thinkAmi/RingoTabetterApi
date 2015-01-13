@@ -10,8 +10,8 @@ namespace RingoTabetterApi.Models
 {
     public class Highcharts
     {
-        private IEnumerable<AppleCountPoco> _total;
-        public IEnumerable<AppleCountPoco> Total
+        private IEnumerable<TotalApplePoco> _total;
+        public IEnumerable<TotalApplePoco> Total
         {
             get
             {
@@ -21,7 +21,7 @@ namespace RingoTabetterApi.Models
                     var appleCount = apple.AddUp();
 
                     _total = appleCount
-                        .Join(apple.Cultivar.Items, a => a.Name, c => c.Name, (a, c) => new AppleCountPoco
+                        .Join(apple.Cultivar.Items, a => a.Name, c => c.Name, (a, c) => new TotalApplePoco
                         {
                             Name = a.Name,
                             Quantity = a.Quantity,
@@ -33,24 +33,35 @@ namespace RingoTabetterApi.Models
         }
 
 
-        private IEnumerable<AppleCountPoco> _totalByMonth;
-        public IEnumerable<AppleCountPoco> TotalByMonth
+        private IEnumerable<AppleByMonthsPoco> _totalByMonth;
+        public IEnumerable<AppleByMonthsPoco> TotalByMonth
         {
             get
             {
                 if (_totalByMonth == null)
                 {
                     var apple = new Apple();
-                    var appleCount = apple.AddUpPerMonth();
+                    var sum = apple.AddUpByMonths();
 
-                    _totalByMonth = appleCount
-                        .Join(apple.Cultivar.Items, a => a.Name, c => c.Name, (a, c) => new AppleCountPoco
+                    // Highchartsで使うため、月別数量を縦持ちしているDBデータを、配列Quantitiesで横持ちにする
+                    var result = new Dictionary<string, AppleByMonthsPoco>();
+                    foreach (var s in sum)
+                    {
+                        if (result.ContainsKey(s.Name))
                         {
-                            Name = a.Name,
-                            Month = a.Month,
-                            Quantity = a.Quantity,
-                            Color = c.Color
-                        });
+                            result[s.Name].Quantities[s.Month - 1] = s.Quantity;
+                        }
+                        else
+                        {
+                            var color = apple.Cultivar.Items.Where(c => c.Name == s.Name).FirstOrDefault().Color ?? "Black";
+                            var row = new AppleByMonthsPoco();
+                            row.Name = s.Name;
+                            row.Quantities[s.Month - 1] = s.Quantity;
+                            row.Color = color;
+                            result.Add(s.Name, row);
+                        }
+                    }
+                    _totalByMonth = result.Values;
                 }
                 return _totalByMonth;
             }

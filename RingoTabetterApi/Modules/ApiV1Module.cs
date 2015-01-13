@@ -19,24 +19,16 @@ namespace RingoTabetterApi.Modules
         {
             Get["/total"] = _ =>
             {
-                Func<IEnumerable<AppleCountPoco>> func = () => new Highcharts().Total;
-                return CreateJsonResponse(func);
+                var result = new Highcharts().Total;
+                return Response.AsJson(result);
             };
 
 
             Get["/month"] = _ =>
             {
-                Func<IEnumerable<AppleCountPoco>> func = () => new Highcharts().TotalByMonth;
-                return CreateJsonResponse(func);
+                var result = new Highcharts().TotalByMonth;
+                return Response.AsJson(result);
             };
-        }
-
-        public Response CreateJsonResponse(Func<IEnumerable<AppleCountPoco>> func)
-        {
-            var appleCount = func();
-            var response = Response.AsJson(appleCount);
-            //response.ContentType = "text/html; charset=utf8";
-            return response;
         }
     }
 }

@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace RingoTabetterApi.POCOs
 {
-    public class AppleCountPoco
+    public class TotalApplePoco
     {
-        public int Month { get; set; }
         public string Name { get; set; }
+        public int Month { get; set; }
         public int Quantity { get; set; }
         public string Color { get; set; }
     }
