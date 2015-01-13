@@ -35,7 +35,7 @@ namespace RingoTabetterApi.Modules
         {
             var appleCount = func();
             var response = Response.AsJson(appleCount);
-            response.ContentType = "text/html; charset=utf8";
+            //response.ContentType = "text/html; charset=utf8";
             return response;
         }
     }
