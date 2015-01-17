@@ -1,6 +1,7 @@
 require 'albacore/tools/fluent_migrator'
 
-LOCAL_RUNNER = 'packages\FluentMigrator.Tools.1.3.1.0\tools\x86\40\Migrate.exe'
+FLUENT_MIGRATOR_VERSION = Dir::glob("packages/FluentMigrator.Tools*").first
+LOCAL_RUNNER = "#{FLUENT_MIGRATOR_VERSION}/tools/AnyCPU/40/Migrate.exe"
 LOCAL_TARGET = 'RingoTabetterTask\bin\Debug\RingoTabetterTask.exe'
 LOCAL_PROVIDER = 'postgres'
 LOCAL_CONNECTION = 'Server=127.0.0.1; Port=5432; Database=ringotabetter; User Id=postgres; Password=postgres;'
