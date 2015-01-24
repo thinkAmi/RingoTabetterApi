@@ -42,7 +42,7 @@ OWIN, SelfHost を使ったNancyで動作しています。
 ## NuGet
 
 |名前|バージョン|役割|
-|-:-|-:-|-:-|
+|---|---|---|
 |Nancy.Owin|0.23.2|Nancy + OWIN + SelfHost で使う|
 |Microsoft.Owin.Hosting|3.0.0|同上|
 |Microsoft.Owin.Host.HttpListener|3.0.0|同上|
@@ -58,7 +58,7 @@ OWIN, SelfHost を使ったNancyで動作しています。
 ## Ruby Gem
 
 |名前|バージョン|役割|
-|-:-|-:-|-:-|
+|---|---|---|
 |Albacore|2.3.15|HerokuでFluentMigratorを実行|
 |heroku_san|4.3.2|Herokuへのデプロイ管理|
 
